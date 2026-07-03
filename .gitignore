@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# pnpm local store (quando não usa o store global)
+.pnpm-store/
+
+# builds
+dist/
+build/
+**/dist/
+**/build/
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# coverage
+coverage/
+**/coverage/
+
+# OS / editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# misc
+*.tsbuildinfo
