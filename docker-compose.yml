@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: pulsefx-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-pulsefx}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pulsefx}
+      POSTGRES_DB: ${POSTGRES_DB:-pulsefx}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pulsefx_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-pulsefx} -d ${POSTGRES_DB:-pulsefx}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pulsefx_postgres_data:
