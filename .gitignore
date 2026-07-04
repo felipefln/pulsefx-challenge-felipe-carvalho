@@ -1,6 +1,7 @@
 # dependencies
 node_modules/
 **/node_modules/
+**/**/node_modules/
 
 # pnpm local store (quando não usa o store global)
 .pnpm-store/
