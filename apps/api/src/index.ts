@@ -1,14 +1,65 @@
 import "dotenv/config";
 import express from "express";
+import swaggerUi from "swagger-ui-express";
+import { openapiSpec } from "./docs/openapi";
 import { prisma } from "./infrastructure/db/prismaClient";
 
 const app = express();
 const port = process.env.PORT ?? 3333;
 
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpec));
+app.get("/openapi.json", (_req, res) => {
+  res.json(openapiSpec);
+});
+
+/**
+ * @openapi
+ * /:
+ *   get:
+ *     summary: Status básico da API
+ *     tags: [Meta]
+ *     responses:
+ *       200:
+ *         description: API no ar
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: ok
+ */
 app.get("/", (_req, res) => {
   res.json({ status: "ok" });
 });
 
+/**
+ * @openapi
+ * /health:
+ *   get:
+ *     summary: Verifica conectividade com o banco de dados
+ *     tags: [Meta]
+ *     responses:
+ *       200:
+ *         description: Postgres acessível
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: string, example: ok }
+ *                 db: { type: string, example: ok }
+ *       503:
+ *         description: Postgres inacessível
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status: { type: string, example: error }
+ *                 db: { type: string, example: unreachable }
+ */
 app.get("/health", async (_req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
@@ -20,4 +71,5 @@ app.get("/health", async (_req, res) => {
 
 app.listen(port, () => {
   console.log(`API rodando na porta ${port}`);
+  console.log(`Documentação OpenAPI/Swagger em http://localhost:${port}/docs`);
 });
