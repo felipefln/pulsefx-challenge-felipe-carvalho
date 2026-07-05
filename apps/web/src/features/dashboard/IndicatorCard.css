@@ -1,0 +1,52 @@
+.indicator-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.indicator-card__description {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.indicator-card__value {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text-h);
+  margin-top: 16px;
+}
+
+.indicator-card__date {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.indicator-card__variation {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.indicator-card__variation--up {
+  color: var(--up);
+}
+
+.indicator-card__variation--down {
+  color: var(--down);
+}
+
+.indicator-card__variation--neutral {
+  color: var(--text-muted);
+}
+
+.indicator-card__empty {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: 16px;
+  font-style: italic;
+}
