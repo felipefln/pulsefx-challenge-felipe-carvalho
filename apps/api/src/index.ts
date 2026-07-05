@@ -1,11 +1,11 @@
 import "dotenv/config";
 import express from "express";
 import swaggerUi from "swagger-ui-express";
+import { env } from "./config/env";
 import { openapiSpec } from "./docs/openapi";
 import { prisma } from "./infrastructure/db/prismaClient";
 
 const app = express();
-const port = process.env.PORT ?? 3333;
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpec));
 app.get("/openapi.json", (_req, res) => {
@@ -65,11 +65,12 @@ app.get("/health", async (_req, res) => {
     await prisma.$queryRaw`SELECT 1`;
     res.json({ status: "ok", db: "ok" });
   } catch (error) {
+    console.error("Healthcheck falhou: Postgres inacessível", error);
     res.status(503).json({ status: "error", db: "unreachable" });
   }
 });
 
-app.listen(port, () => {
-  console.log(`API rodando na porta ${port}`);
-  console.log(`Documentação OpenAPI/Swagger em http://localhost:${port}/docs`);
+app.listen(env.port, () => {
+  console.log(`API rodando na porta ${env.port}`);
+  console.log(`Documentação OpenAPI/Swagger em http://localhost:${env.port}/docs`);
 });
