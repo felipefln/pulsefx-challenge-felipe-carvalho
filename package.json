@@ -2,10 +2,8 @@
   "name": "pulsefx",
   "private": true,
   "version": "0.1.0",
+  "packageManager": "pnpm@9.14.4",
   "engines": {
     "node": ">=20"
-  },
-  "scripts": {
-    "postinstall": "pnpm --filter @pulsefx/shared build"
   }
 }
