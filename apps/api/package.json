@@ -20,6 +20,7 @@
   "dependencies": {
     "@prisma/client": "^6.19.3",
     "@pulsefx/shared": "workspace:*",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^4.21.2",
     "node-cron": "^4.6.0",
@@ -27,6 +28,7 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
     "@types/node-cron": "^3.0.11",

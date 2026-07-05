@@ -1,4 +1,5 @@
 import "dotenv/config";
+import cors from "cors";
 import express from "express";
 import swaggerUi from "swagger-ui-express";
 import { env } from "./config/env";
@@ -19,6 +20,9 @@ import { createIndicatorRouter } from "./interfaces/http/routes/indicatorRoutes"
 
 const app = express();
 
+// Precisa vir antes de tudo: o preflight (OPTIONS) do browser tem que
+// receber os headers de CORS em qualquer rota, inclusive as que exigem auth.
+app.use(cors({ origin: env.corsOrigins }));
 app.use(anonymousUser);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpec));
 app.use("/admin", createAdminRouter(indicatorRepository, syncIndicatorUseCase));
