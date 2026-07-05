@@ -2,7 +2,12 @@ import "dotenv/config";
 import express from "express";
 import swaggerUi from "swagger-ui-express";
 import { env } from "./config/env";
-import { indicatorRepository, listIndicatorsUseCase, syncIndicatorUseCase } from "./composition";
+import {
+  getIndicatorHistoryUseCase,
+  indicatorRepository,
+  listIndicatorsUseCase,
+  syncIndicatorUseCase,
+} from "./composition";
 import { openapiSpec } from "./docs/openapi";
 import { prisma } from "./infrastructure/db/prismaClient";
 import { startSyncScheduler } from "./infrastructure/scheduler/syncScheduler";
@@ -15,7 +20,7 @@ const app = express();
 app.use(anonymousUser);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpec));
 app.use("/admin", createAdminRouter(indicatorRepository, syncIndicatorUseCase));
-app.use("/indicators", createIndicatorRouter(listIndicatorsUseCase));
+app.use("/indicators", createIndicatorRouter(listIndicatorsUseCase, getIndicatorHistoryUseCase));
 app.get("/openapi.json", (_req, res) => {
   res.json(openapiSpec);
 });

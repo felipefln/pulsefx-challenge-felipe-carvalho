@@ -1,3 +1,4 @@
+import { GetIndicatorHistoryUseCase } from "./application/useCases/getIndicatorHistoryUseCase";
 import { ListIndicatorsUseCase } from "./application/useCases/listIndicatorsUseCase";
 import { SyncIndicatorUseCase } from "./application/useCases/syncIndicatorUseCase";
 import { CompositeExternalSeriesProvider } from "./infrastructure/external/compositeExternalSeriesProvider";
@@ -30,3 +31,5 @@ export const listIndicatorsUseCase = new ListIndicatorsUseCase(
   observationRepository,
   favoriteRepository,
 );
+
+export const getIndicatorHistoryUseCase = new GetIndicatorHistoryUseCase(indicatorRepository, observationRepository);
