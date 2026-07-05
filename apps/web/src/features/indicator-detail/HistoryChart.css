@@ -1,0 +1,23 @@
+.history-chart {
+  margin-top: 24px;
+}
+
+.history-chart__tooltip {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.history-chart__tooltip strong {
+  color: var(--text-h);
+  font-size: 15px;
+}
+
+.history-chart__tooltip span {
+  color: var(--text-muted);
+  font-size: 12px;
+}

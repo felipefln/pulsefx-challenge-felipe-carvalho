@@ -1,0 +1,31 @@
+.indicator-detail__back {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: var(--text-muted);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.indicator-detail__back:hover {
+  text-decoration: underline;
+}
+
+.indicator-detail__description {
+  color: var(--text-muted);
+  margin-top: 8px;
+  max-width: 640px;
+}
+
+.indicator-detail__limitations {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-style: italic;
+  margin-top: 24px;
+  max-width: 640px;
+}
+
+.indicator-detail__empty {
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 24px;
+}
