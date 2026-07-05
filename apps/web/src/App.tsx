@@ -1,5 +1,7 @@
+import { DashboardPage } from "./features/dashboard/DashboardPage";
+
 function App() {
-  return <h1>Pulse FX</h1>;
+  return <DashboardPage />;
 }
 
 export default App;
