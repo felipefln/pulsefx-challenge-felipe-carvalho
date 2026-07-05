@@ -4,5 +4,8 @@
   "version": "0.1.0",
   "engines": {
     "node": ">=20"
+  },
+  "scripts": {
+    "postinstall": "pnpm --filter @pulsefx/shared build"
   }
 }
