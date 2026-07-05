@@ -2,6 +2,7 @@ import type { IndicatorSummary } from "@pulsefx/shared";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { IndicatorCard } from "./IndicatorCard";
 
@@ -17,12 +18,14 @@ const base: IndicatorSummary = {
   isFavorite: false,
 };
 
-// FavoriteButton (dentro do card) usa react-query, então todo render precisa de um provider.
+// FavoriteButton usa react-query e o título usa <Link> — todo render precisa dos dois providers.
 function renderCard(indicator: IndicatorSummary): ReturnType<typeof render> {
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   return render(
     <QueryClientProvider client={queryClient}>
-      <IndicatorCard indicator={indicator} />
+      <MemoryRouter>
+        <IndicatorCard indicator={indicator} />
+      </MemoryRouter>
     </QueryClientProvider>,
   );
 }
@@ -102,7 +105,9 @@ describe("IndicatorCard", () => {
     const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
     rerender(
       <QueryClientProvider client={queryClient}>
-        <IndicatorCard indicator={{ ...base, isFavorite: true }} />
+        <MemoryRouter>
+          <IndicatorCard indicator={{ ...base, isFavorite: true }} />
+        </MemoryRouter>
       </QueryClientProvider>,
     );
     expect(screen.getByRole("button", { name: "Remover dos meus indicadores" })).toHaveTextContent("★");
