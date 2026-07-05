@@ -17,7 +17,20 @@ const options: swaggerJsdoc.Options = {
         "Conteúdo educacional; não é recomendação de investimento.",
     },
     servers: [{ url: "/", description: "Servidor atual" }],
-    tags: [{ name: "Meta", description: "Status e diagnóstico da API" }],
+    tags: [
+      { name: "Meta", description: "Status e diagnóstico da API" },
+      { name: "Admin", description: "Operações administrativas protegidas" },
+    ],
+    components: {
+      securitySchemes: {
+        adminToken: {
+          type: "apiKey",
+          in: "header",
+          name: "X-Admin-Token",
+          description: "Token configurado em ADMIN_SYNC_TOKEN, exigido pelas rotas /admin/*.",
+        },
+      },
+    },
   },
   apis: [process.env.NODE_ENV === "production" ? "./dist/**/*.js" : "./src/**/*.ts"],
 };
