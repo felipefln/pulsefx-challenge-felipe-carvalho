@@ -7,6 +7,13 @@
   text-align: left;
 }
 
+.indicator-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .indicator-card__description {
   color: var(--text-muted);
   font-size: 14px;

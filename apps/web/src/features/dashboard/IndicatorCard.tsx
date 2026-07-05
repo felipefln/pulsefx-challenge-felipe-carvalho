@@ -1,4 +1,5 @@
 import type { IndicatorSummary } from "@pulsefx/shared";
+import { FavoriteButton } from "../favorites/FavoriteButton";
 import "./IndicatorCard.css";
 
 interface IndicatorCardProps {
@@ -31,12 +32,15 @@ function resolveTrend(changePercent: number | null): Trend {
 }
 
 export function IndicatorCard({ indicator }: IndicatorCardProps) {
-  const { name, description, unit, latestObservation, variation } = indicator;
+  const { code, name, description, unit, latestObservation, variation, isFavorite } = indicator;
 
   if (!latestObservation) {
     return (
       <article className="indicator-card">
-        <h2>{name}</h2>
+        <div className="indicator-card__header">
+          <h2>{name}</h2>
+          <FavoriteButton code={code} isFavorite={isFavorite} />
+        </div>
         <p className="indicator-card__description">{description}</p>
         <p className="indicator-card__empty">Ainda não sincronizado</p>
       </article>
@@ -48,7 +52,10 @@ export function IndicatorCard({ indicator }: IndicatorCardProps) {
 
   return (
     <article className="indicator-card">
-      <h2>{name}</h2>
+      <div className="indicator-card__header">
+        <h2>{name}</h2>
+        <FavoriteButton code={code} isFavorite={isFavorite} />
+      </div>
       <p className="indicator-card__description">{description}</p>
       <p className="indicator-card__value">{formatValue(latestObservation.value, unit)}</p>
       <p className="indicator-card__date">Referência: {formatRefDate(latestObservation.refDate)}</p>
