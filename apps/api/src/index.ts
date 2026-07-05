@@ -2,12 +2,16 @@ import "dotenv/config";
 import express from "express";
 import swaggerUi from "swagger-ui-express";
 import { env } from "./config/env";
+import { indicatorRepository, syncIndicatorUseCase } from "./composition";
 import { openapiSpec } from "./docs/openapi";
 import { prisma } from "./infrastructure/db/prismaClient";
+import { startSyncScheduler } from "./infrastructure/scheduler/syncScheduler";
+import { createAdminRouter } from "./interfaces/http/routes/adminRoutes";
 
 const app = express();
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiSpec));
+app.use("/admin", createAdminRouter(indicatorRepository, syncIndicatorUseCase));
 app.get("/openapi.json", (_req, res) => {
   res.json(openapiSpec);
 });
@@ -69,6 +73,8 @@ app.get("/health", async (_req, res) => {
     res.status(503).json({ status: "error", db: "unreachable" });
   }
 });
+
+startSyncScheduler(indicatorRepository, syncIndicatorUseCase);
 
 app.listen(env.port, () => {
   console.log(`API rodando na porta ${env.port}`);
