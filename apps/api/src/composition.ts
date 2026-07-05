@@ -1,3 +1,4 @@
+import { ListIndicatorsUseCase } from "./application/useCases/listIndicatorsUseCase";
 import { SyncIndicatorUseCase } from "./application/useCases/syncIndicatorUseCase";
 import { CompositeExternalSeriesProvider } from "./infrastructure/external/compositeExternalSeriesProvider";
 import { PrismaFavoriteRepository } from "./infrastructure/repositories/prismaFavoriteRepository";
@@ -22,4 +23,10 @@ export const syncIndicatorUseCase = new SyncIndicatorUseCase(
   observationRepository,
   syncStateRepository,
   externalSeriesProvider,
+);
+
+export const listIndicatorsUseCase = new ListIndicatorsUseCase(
+  indicatorRepository,
+  observationRepository,
+  favoriteRepository,
 );

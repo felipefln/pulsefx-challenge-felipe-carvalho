@@ -19,6 +19,8 @@ const options: swaggerJsdoc.Options = {
     servers: [{ url: "/", description: "Servidor atual" }],
     tags: [
       { name: "Meta", description: "Status e diagnóstico da API" },
+      { name: "Indicators", description: "Dashboard e detalhe dos indicadores" },
+      { name: "Favorites", description: "\"Meus indicadores\" — favoritos por usuário anônimo" },
       { name: "Admin", description: "Operações administrativas protegidas" },
     ],
     components: {
